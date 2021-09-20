@@ -4,17 +4,16 @@
 //
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
-let tankGT;
-let tankGB;
-let missile;
+
 let radius = 25;
-let x, y, a;
+let a, missile, tankGB, tankGT;
 let theta = 0;
 let bx = 0;
 let by = 0;
-let cx = 0;
-let cy = 0;
-let speed = 8;
+let x = 0;
+let y = 0;
+let speed = 1;
+let bSpeed = 10;
 let pos = 100;
 let type;
 
@@ -27,13 +26,11 @@ function preload() {
 function setup() {
   createCanvas(600, 600);
   angleMode(DEGREES);
-  x = 0;
-  y = 0;
 }
 
 function draw() {
   background(204);
-  angleMode(DEGREES); // Change the mode to DEGREES
+  angleMode(DEGREES);
   shoot();
   move();
   tankBottom();
@@ -44,34 +41,30 @@ function draw() {
 //---------------------------------------------------------------------
 
 function tankTop() {
-  a = atan2(mouseY - height / 2, mouseX - width / 2);
   push();
-  cx = width / 2;
-  cy = height / 2;
-  translate(cx, cy);
-  // cx = 0;
-  // cy = 0;
+  translate(x, y);
+  a = atan2(mouseY-y , mouseX-x );
   rotate(90);
   rotate(a);
   imageMode(CENTER);
-  image(tankGT, cx, cy, radius * 2, radius * 2);
+  image(tankGT, 0, 0, radius * 2, radius * 2);
   pop();
 }
 
 function shoot() {
   push();
   if (keyIsDown(32)) {
-    translate(width / 2, height / 2);
+    translate(x,y);
     fill("grey");
     if (type === 1) {
-      circle(bx, by, 5);
+      circle(bx, by, 5*40);
     } 
     else if (type === 2) {
-      image(missile, bx, by, 25, 5);
+      image(missile, bx, by, 25*10, 5*10);
     }
-    rotate(a);
-    bx += cos(a) * speed;
-    by += sin(a) * speed;
+    //rotate(a);
+    bx += cos(a) * bSpeed;
+    by += sin(a) * bSpeed;
     pop();
   } 
   else {
@@ -88,33 +81,25 @@ function move(){
     theta -= 2.5;
   }
   if (keyIsDown(87)) {
-    cx += cos(theta) * speed;
-    cy += sin(theta) * speed;
+    x += cos(theta) * speed;
+    y += sin(theta) * speed;
   }
   if (keyIsDown(83)) {
-    cx -= cos(theta) * speed;
-    cy -= sin(theta) * speed;
+    x -= cos(theta) * speed;
+    y -= sin(theta) * speed;
   }
 
 }
 
 function tankBottom(){
   push();
-  cx = width / 2;
-  cy = height / 2;
-  translate(cx, cy);
-  // cx = 0;
-  // cy = 0;
+  translate(x, y);
   rotate(theta);
   imageMode(CENTER);
-  image(tankGB, cx, cy, radius * 2, radius * 2);
+  image(tankGB, 0, 0, radius * 2, radius * 2);
   pop();
 
 }
-
-
-
-
 
 function ammoSelectionSquare() {
   rectMode(CENTER);
