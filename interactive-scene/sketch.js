@@ -9,7 +9,7 @@ let tankGB;
 let missile;
 let radius = 25;
 let x, y, a;
-let theta;
+let theta = 0;
 let bx = 0;
 let by = 0;
 let cx = 0;
@@ -35,9 +35,9 @@ function draw() {
   background(204);
   angleMode(DEGREES); // Change the mode to DEGREES
   shoot();
+  move();
   tankBottom();
   tankTop();
-  move();
   ammoSelectionSquare();
 }
 
@@ -49,8 +49,8 @@ function tankTop() {
   cx = width / 2;
   cy = height / 2;
   translate(cx, cy);
-  cx = 0;
-  cy = 0;
+  // cx = 0;
+  // cy = 0;
   rotate(90);
   rotate(a);
   imageMode(CENTER);
@@ -103,8 +103,8 @@ function tankBottom(){
   cx = width / 2;
   cy = height / 2;
   translate(cx, cy);
-  cx = 0;
-  cy = 0;
+  // cx = 0;
+  // cy = 0;
   rotate(theta);
   imageMode(CENTER);
   image(tankGB, cx, cy, radius * 2, radius * 2);
