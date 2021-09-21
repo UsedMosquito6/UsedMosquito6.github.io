@@ -6,16 +6,17 @@
 // - describe what you did to take this project "above and beyond"
 
 let radius = 25;
-let a, missile, tankGB, tankGT, bulletMovementX, bulletMovementY;
+let a, missile, tankGB, tankGT, bulletMovementX, bulletMovementY, bulletColor;
 let theta = 0;
 let bx = 0;
 let by = 0;
 let x = 0;
 let y = 0;
 let speed = 1;
-let bSpeed = 10;
 let pos = 100;
 let type;
+
+let bulletArray = [];
 
 function preload() {
   tankGT = loadImage("assets/tankG-T.png");
@@ -51,7 +52,30 @@ function tankTop() {
   pop();
 }
 
+function spawnBullet(){
+  let newBullet = {
+    bx : 0,
+    by : 0,
+    bulletRadius : 5,
+    bulletColor : "grey",
+    bSpeed : 10,
+  };
+  bulletArray.push(newBullet);
+}
 
+function moveBullet(){
+  for (let bullet of bulletArray) {
+    bx += cos(a) * bSpeed;
+    by += sin(a) * bSpeed;
+  }
+}
+
+function displayBullet() {
+  for (let bullet of bulletArray) {
+    noStroke();
+    fill(ball.ballColor);
+    circle(ball.x, ball.y, ball.radius*2);
+  }
 function shoot() {
   push();
   if (keyIsDown(32)) {
