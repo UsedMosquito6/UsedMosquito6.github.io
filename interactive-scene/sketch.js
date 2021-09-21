@@ -6,7 +6,7 @@
 // - describe what you did to take this project "above and beyond"
 
 let radius = 25;
-let a, missile, tankGB, tankGT;
+let a, missile, tankGB, tankGT, bulletMovementX, bulletMovementY;
 let theta = 0;
 let bx = 0;
 let by = 0;
@@ -51,20 +51,24 @@ function tankTop() {
   pop();
 }
 
+
 function shoot() {
   push();
   if (keyIsDown(32)) {
     translate(x,y);
-    fill("grey");
     if (type === 1) {
+      fill("grey");
       circle(bx, by, 5*40);
+      bulletMovementX = cos(a) * bSpeed;
+      bulletMovementY = sin(a) * bSpeed;
+      bx += bulletMovementX;
+      by += bulletMovementY;
     } 
     else if (type === 2) {
       image(missile, bx, by, 25*10, 5*10);
+      bx += cos(a) * bSpeed;
+      by += sin(a) * bSpeed;
     }
-    //rotate(a);
-    bx += cos(a) * bSpeed;
-    by += sin(a) * bSpeed;
     pop();
   } 
   else {
