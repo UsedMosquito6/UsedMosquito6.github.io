@@ -12,6 +12,7 @@ let bx = 0;
 let by = 0;
 let x = 0;
 let y = 0;
+let bSpeed = 5;
 let speed = 1;
 let pos = 100;
 let type;
@@ -41,14 +42,12 @@ function draw() {
 
 //---------------------------------------------------------------------
 
-function tankTop() {
+function mousePressed(){                              //shoot
+  spawnBullet();
   push();
-  translate(x, y);
-  a = atan2(mouseY-y , mouseX-x );
-  rotate(90);
-  rotate(a);
-  imageMode(CENTER);
-  image(tankGT, 0, 0, radius * 2, radius * 2);
+  translate(x,y);
+  bulletArray[bulletArray.length-1].bx = x;
+  bulletArray[bulletArray.length-1].by = y;
   pop();
 }
 
@@ -73,32 +72,18 @@ function moveBullet(){
 function displayBullet() {
   for (let bullet of bulletArray) {
     noStroke();
-    fill(ball.ballColor);
-    circle(ball.x, ball.y, ball.radius*2);
+    fill(bullet.ballColor);
+    circle(bullet.x, bullet.y, bullet.radius*2);
   }
+}
 function shoot() {
   push();
   if (keyIsDown(32)) {
-    translate(x,y);
-    if (type === 1) {
-      fill("grey");
-      circle(bx, by, 5*40);
-      bulletMovementX = cos(a) * bSpeed;
-      bulletMovementY = sin(a) * bSpeed;
-      bx += bulletMovementX;
-      by += bulletMovementY;
-    } 
-    else if (type === 2) {
-      image(missile, bx, by, 25*10, 5*10);
-      bx += cos(a) * bSpeed;
-      by += sin(a) * bSpeed;
-    }
+    moveBullet();
+    bulletArray[bulletArray.length-1].bx = 0;
+    bulletArray[bulletArray.length-1].by = 0;
     pop();
   } 
-  else {
-    bx = 0;
-    by = 0;
-  }
 }
 
 function move(){
@@ -117,6 +102,17 @@ function move(){
     y -= sin(theta) * speed;
   }
 
+}
+
+function tankTop() {
+  push();
+  translate(x, y);
+  a = atan2(mouseY-y , mouseX-x );
+  rotate(90);
+  rotate(a);
+  imageMode(CENTER);
+  image(tankGT, 0, 0, radius * 2, radius * 2);
+  pop();
 }
 
 function tankBottom(){
