@@ -19,7 +19,7 @@ function draw() {
   displayBall();
 }
 
-function mousePressed(){
+function mousePressed(){                              //shoot
   spawnBall();
   ballArray[ballArray.length-1].x = mouseX;
   ballArray[ballArray.length-1].y = mouseY;
