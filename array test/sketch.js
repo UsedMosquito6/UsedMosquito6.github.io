@@ -1,9 +1,14 @@
 let ballArray = [];
 let bSpeed = 8;
+
 let a;
-let x, y, tankGT, missile, tankGB, bx, by;
+let x, y, tankGT, missile, tankGB, bx, by, type;
 let radius = 5;
 let tRadius = 25;
+
+let pos = 75;
+let theta = 0;
+let speed = 1;
 
 function preload() {
   tankGT = loadImage("assets/tankG-T.png");
@@ -12,40 +17,33 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(windowWidth, windowHeight);
+  angleMode(DEGREES);
   push();
-  x = 200;
-  y = 200;
+  x = width/2;
+  y = height/2;
   translate(x, y);
   pop();
 }
 
 function draw() {
-  background(220);
+  background(0, 150, 50);
+  tankBottom();
   tankTop();
+  move();
   displayBall();
   moveBall();
+  shoot();
+  ammoSelectionSquare();
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------
 
-function tankTop() {
-  push();
-  translate(x, y);
-  a = atan2(mouseY-y , mouseX-x );
-  rotate(a);
-  imageMode(CENTER);
-  image(tankGT, 0, 0, tRadius * 2, tRadius * 2);
-  pop();
-}
-
 function mousePressed() {                             
   push();
-  console.log(x);
-  console.log(y);
   spawnBall();
-  ballArray[ballArray.length-1].bx = 0;
-  ballArray[ballArray.length-1].by = 0;
+  ballArray[ballArray.length-1].bx = x;
+  ballArray[ballArray.length-1].by = y;
   pop();
 }
 
@@ -55,7 +53,7 @@ function spawnBall() {
   let newBall = {
     bx: 0,
     by: 0,
-    radius: 30,
+    radius: 10,
     ballColor: "grey",
     changeX : cos(a) * bSpeed,
     changeY : sin(a) * bSpeed,
@@ -66,7 +64,6 @@ function spawnBall() {
 
 function displayBall() {
   for (let ball of ballArray) {
-    noStroke();
     fill(ball.ballColor);
     circle(ball.bx, ball.by, ball.radius);
   }
@@ -79,29 +76,90 @@ function moveBall() {
   }
 }
 
+function shoot() {
+  push();
+  if (keyIsDown(32)) {
+    push();
+    spawnBall();
+    ballArray[ballArray.length-1].bx = x;
+    ballArray[ballArray.length-1].by = y;
+    pop();
+  }
+}
 
-// function shoot() {
-//   push();
-//   if (keyIsDown(32)) {
-//     translate(x,y);
-//     fill("grey");
-//     if (type === 1) {
-//       fill("grey");
-//       circle(bx, by, 5*40);
-//       bulletMovementX = cos(a) * bSpeed;
-//       bulletMovementY = sin(a) * bSpeed;
-//       bx += bulletMovementX;
-//       by += bulletMovementY;
-//     } 
-//     else if (type === 2) {
-//       image(missile, bx, by, 25*10, 5*10);
-//       bx += cos(a) * bSpeed;
-//       by += sin(a) * bSpeed;
-//     }
-//     //rotate(a);
-//     bx += cos(a) * bSpeed;
-//     by += sin(a) * bSpeed;
-//     pop();
-//   } 
-//   else {
-// @ @@
+
+
+function tankTop() {    //Display tank
+  push();
+  translate(x, y);
+  a = atan2(mouseY-y , mouseX-x );
+  rotate(a);
+  imageMode(CENTER);
+  image(tankGT, 0, 0, tRadius * 2, tRadius * 2);
+  pop();
+}
+
+function tankBottom(){
+  push();
+  translate(x, y);
+  rotate(theta);
+  imageMode(CENTER);
+  image(tankGB, 0, 0, tRadius * 2, tRadius * 2);
+  pop();
+
+}
+
+function move() {
+  if (keyIsDown(68)) {
+    theta += 2.5;
+  }
+  if (keyIsDown(65)) {
+    theta -= 2.5;
+  }
+  if (keyIsDown(87)) {
+    x += cos(theta) * speed;
+    y += sin(theta) * speed;
+  }
+  if (keyIsDown(83)) {
+    x -= cos(theta) * speed;
+    y -= sin(theta) * speed;
+  }
+
+}
+
+
+
+function ammoSelectionSquare() {    // Ammo Selection
+  // push();
+  rectMode(CENTER);
+  imageMode(CENTER);
+  noFill();
+  for (let i = 1; i < 5; i++) {
+    square(width - 50, i * 75, 50);
+  }
+  square(width - 50, pos, 50);
+  beginShape();
+  vertex(width - 20, pos - 20);
+  vertex(width - 20, pos + 20);
+  endShape();
+  image(missile, width - 50, 150, 50, 10);
+  // pop();
+}
+
+function mouseWheel(event) {    // Ammo Selection (Scroll Wheel Input)
+  if (pos > 50 && pos < height - 50) {
+    if (event.delta > 0){
+      pos += event.delta - 25;
+    }
+    if(event.delta < 0){
+      pos += event.delta + 25;
+    }
+    if (pos < 50) {
+      pos = 75;
+    }
+    if (pos > height - 50) {
+      pos = 675;
+    }
+  }
+  type = pos / 75;
+}
