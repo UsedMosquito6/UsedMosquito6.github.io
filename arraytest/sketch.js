@@ -1,3 +1,8 @@
+
+
+
+
+
 let ballArray = [];
 let bSpeed = 8;
 
@@ -134,7 +139,7 @@ function ammoSelectionSquare() {    // Ammo Selection
   rectMode(CENTER);
   imageMode(CENTER);
   noFill();
-  for (let i = 1; i < 5; i++) {
+  for (let i = 1; i < 6; i++) {
     square(width - 50, i * 75, 50);
   }
   square(width - 50, pos, 50);
@@ -157,8 +162,8 @@ function mouseWheel(event) {    // Ammo Selection (Scroll Wheel Input)
     if (pos < 50) {
       pos = 75;
     }
-    if (pos > height - 50) {
-      pos = 675;
+    if (pos > height - 350) {
+      pos = 975;
     }
   }
   type = pos / 75;
