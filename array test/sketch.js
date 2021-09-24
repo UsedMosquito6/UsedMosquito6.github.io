@@ -3,7 +3,7 @@ let bSpeed = 8;
 
 let a;
 let x, y, tankGT, missile, tankGB, bx, by, type;
-let radius = 5;
+// let radius = 1;
 let tRadius = 25;
 
 let pos = 75;
@@ -28,12 +28,12 @@ function setup() {
 
 function draw() {
   background(0, 150, 50);
+  shoot();
   tankBottom();
   tankTop();
   move();
   displayBall();
   moveBall();
-  shoot();
   ammoSelectionSquare();
 }
 
@@ -53,7 +53,7 @@ function spawnBall() {
   let newBall = {
     bx: 0,
     by: 0,
-    radius: 10,
+    radius: 5,
     ballColor: "grey",
     changeX : cos(a) * bSpeed,
     changeY : sin(a) * bSpeed,
