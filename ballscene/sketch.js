@@ -14,10 +14,22 @@ function setup() {
 
 function draw() {
   background(255);
-
+  checkIfBallTounchingMouse();
   moveBall();
   displayBall();
+  
 }
+
+function checkIfBallTounchingMouse(){
+  for (let i = 0; i<ballArray.length; i++){
+    let howFarAway = dist(ballArray[i].x, ballArray[i].y, mouseX, mouseY);
+    if (howFarAway < ballArray[1].radius){
+      ballArray.splice(i, 1);
+    }
+  }
+}
+
+
 
 function mousePressed(){                              //shoot
   spawnBall();
