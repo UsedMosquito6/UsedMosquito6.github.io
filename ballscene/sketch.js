@@ -21,7 +21,7 @@ function draw() {
 }
 
 function checkIfBallTounchingMouse(){
-  for (let i = 0; i<ballArray.length; i++){
+  for (let i = ballArray.length-1; i >=0; i--){
     let howFarAway = dist(ballArray[i].x, ballArray[i].y, mouseX, mouseY);
     if (howFarAway < ballArray[1].radius){
       ballArray.splice(i, 1);
