@@ -5,8 +5,10 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let gridSize = 4;
-let grid, ax, ay;
+let gridSize = 11;
+let grid;
+let cellX = 5;
+let cellY = 5;
 
 function setup() {
   if (windowWidth > windowHeight) {
@@ -41,7 +43,6 @@ function displayGrid() {
 
 
 
-
 function createEmptyGrid(howLarge) {
   let emptyArray = [];
   for (let y=0; y<howLarge; y++) {
@@ -50,32 +51,38 @@ function createEmptyGrid(howLarge) {
       emptyArray[y].push(0);
     }
   }
+  emptyArray[cellY][cellX] = 1;
   return emptyArray;
 }
 
 
 function move() {   
-  let cellX = 
-  if (keyIsDown(68)) {
+  let cellX = 0;
+  if (keyIsDown(87)) {
     swap(cellX, cellY);
     swap(cellX, cellY -1);
   }
   if (keyIsDown(65)) {
-
-  }
-  if (keyIsDown(87)) {
+    swap(cellX, cellY);
+    swap(cellX -1, cellY);
 
   }
   if (keyIsDown(83)) {
+    swap(cellX, cellY);
+    swap(cellX, cellY +1);
+
+  }
+  if (keyIsDown(68)) {
+    swap(cellX, cellY);
+    swap(cellX +1, cellY);
 
   }
 
 }
 
 function mousePressed(){
-  // let cellX = Math.floor(mouseX/(width/gridSize));
-  // let cellY = Math.floor(mouseY/(height/gridSize));
-  let cellX 
+  //let cellX = Math.floor(mouseX/(width/gridSize));
+  //let cellY = Math.floor(mouseY/(height/gridSize));
   swap(cellX, cellY);
   swap(cellX, cellY - 1);
   swap(cellX, cellY + 1);
