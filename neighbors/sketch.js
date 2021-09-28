@@ -71,13 +71,15 @@ function createRandomGrid(howLarge) {
 
 
 function mousePressed(){
-  let cellX = Math.floor(mouseX/(width/gridSize));
-  let cellY = Math.floor(mouseY/(height/gridSize));
-  swap(cellX, cellY);
-  swap(cellX, cellY - 1);
-  swap(cellX, cellY + 1);
-  swap(cellX + 1, cellY);
-  swap(cellX - 1, cellY);
+  if(mouseX <= width && mouseY <= height){
+    let cellX = Math.floor(mouseX/(width/gridSize));
+    let cellY = Math.floor(mouseY/(height/gridSize));
+    swap(cellX, cellY);
+    swap(cellX, cellY - 1);
+    swap(cellX, cellY + 1);
+    swap(cellX + 1, cellY);
+    swap(cellX - 1, cellY);
+  }
 }
 
 

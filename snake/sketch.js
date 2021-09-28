@@ -16,7 +16,7 @@ function setup() {
     createCanvas(windowWidth, windowWidth);
   }
   
-  grid = createRandomGrid(gridSize);
+  grid = createEmptyGrid(gridSize);
 }
 
 function draw() {
@@ -53,26 +53,29 @@ function createEmptyGrid(howLarge) {
   return emptyArray;
 }
 
-function createRandomGrid(howLarge) {
-  let emptyArray = [];
-  for (let y=0; y<howLarge; y++) {
-    emptyArray.push([]);
-    for (let x=0; x<howLarge; x++) {
-      if (random(0, 100) < 50) {
-        emptyArray[y].push(0);
-      }
-      else {
-        emptyArray[y].push(1);
-      }
-    }
+
+function move() {   
+  let cellX = 
+  if (keyIsDown(68)) {
+    swap(cellX, cellY);
+    swap(cellX, cellY -1);
   }
-  return emptyArray;
+  if (keyIsDown(65)) {
+
+  }
+  if (keyIsDown(87)) {
+
+  }
+  if (keyIsDown(83)) {
+
+  }
+
 }
 
-
 function mousePressed(){
-  let cellX = Math.floor(mouseX/(width/gridSize));
-  let cellY = Math.floor(mouseY/(height/gridSize));
+  // let cellX = Math.floor(mouseX/(width/gridSize));
+  // let cellY = Math.floor(mouseY/(height/gridSize));
+  let cellX 
   swap(cellX, cellY);
   swap(cellX, cellY - 1);
   swap(cellX, cellY + 1);
