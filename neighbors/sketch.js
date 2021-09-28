@@ -5,35 +5,66 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-
-let gridDimensions = 10;
+let gridSize = 8;
 let grid;
 
-
 function setup() {
-  createCanvas(windowWidth, windowHeight);
-  grid = createArray(gridDimensions);
+  if (windowWidth > windowHeight) {
+    createCanvas(windowHeight, windowHeight);
+  }
+  else {
+    createCanvas(windowWidth, windowWidth);
+  }
+  
+  grid = createRandomGrid(gridSize);
 }
 
 function draw() {
   background(220);
 
-
-  createArray();
+  displayGrid();
 }
 
+function displayGrid() {
+  let cellSize = width/gridSize;
 
-
-
-function createArray(howLarge){
-  let newArray = [];
-  for(let y=0; y<howLarge; y++){
-    newArray.push([]);
-    for(let x=0; x<howLarge; y++){
-      newArray[y].push(0);
+  for (let y=0; y<grid.length; y++) {
+    for (let x=0; x<grid[y].length; x++) {
+      if (grid[y][x] === 0) {
+        fill("white");
+      }
+      else if (grid[y][x] === 1) {
+        fill("black");
+      }
+      rect(x*cellSize, y*cellSize, cellSize, cellSize);
     }
   }
-  return newArray;
 }
 
 
+function createEmptyGrid(howLarge) {
+  let emptyArray = [];
+  for (let y=0; y<howLarge; y++) {
+    emptyArray.push([]);
+    for (let x=0; x<howLarge; x++) {
+      emptyArray[y].push(0);
+    }
+  }
+  return emptyArray;
+}
+
+function createRandomGrid(howLarge) {
+  let emptyArray = [];
+  for (let y=0; y<howLarge; y++) {
+    emptyArray.push([]);
+    for (let x=0; x<howLarge; x++) {
+      if (random(0, 100) < 50) {
+        emptyArray[y].push(0);
+      }
+      else {
+        emptyArray[y].push(1);
+      }
+    }
+  }
+  return emptyArray;
+}
