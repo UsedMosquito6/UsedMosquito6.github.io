@@ -5,7 +5,7 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let gridSize = 12;
+let gridSize = 4;
 let grid, ax, ay;
 
 function setup() {
@@ -73,10 +73,22 @@ function createRandomGrid(howLarge) {
 function mousePressed(){
   let cellX = Math.floor(mouseX/(width/gridSize));
   let cellY = Math.floor(mouseY/(height/gridSize));
-  if (grid[cellY][cellX] === 0){
-    grid[cellY][cellX] = 1;
-  }
-  else if (grid[cellY][cellX] === 1){
-    grid[cellY][cellX] = 0;
+  swap(cellX, cellY);
+  swap(cellX, cellY - 1);
+  swap(cellX, cellY + 1);
+  swap(cellX + 1, cellY);
+  swap(cellX - 1, cellY);
+}
+
+
+
+function swap(x, y){
+  if (x>=0 && x < gridSize && y>=0 && x < gridSize){
+    if (grid[y][x] === 0){
+      grid [y][x] = 1;
+    }
+    else if (grid[y][x] === 1){
+      grid [y][x] = 0;
+    }
   }
 }
