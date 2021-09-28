@@ -1,4 +1,9 @@
-
+// Interactive Scene
+// Blake Allin
+// 9/27/21
+//
+// Extra for Experts:
+// The 
 
 
 
@@ -44,7 +49,8 @@ function draw() {
 
 //------------------------------------------------------------------------------------------------------------------------------------------------
 
-function mousePressed() {                             
+
+function mousePressed() {   //Shoot                         
   push();
   spawnBall();
   ballArray[ballArray.length-1].bx = x;
@@ -52,7 +58,7 @@ function mousePressed() {
   pop();
 }
 
-function spawnBall() {
+function spawnBall() {    //Ball
   push();
   translate (x, y);
   let newBall = {
@@ -114,7 +120,7 @@ function tankBottom(){
 
 }
 
-function move() {
+function move() {   //Tank Movement
   if (keyIsDown(68)) {
     theta += 2.5;
   }
@@ -135,7 +141,6 @@ function move() {
 
 
 function ammoSelectionSquare() {    // Ammo Selection
-  // push();
   rectMode(CENTER);
   imageMode(CENTER);
   noFill();
@@ -148,7 +153,6 @@ function ammoSelectionSquare() {    // Ammo Selection
   vertex(width - 20, pos + 20);
   endShape();
   image(missile, width - 50, 150, 50, 10);
-  // pop();
 }
 
 function mouseWheel(event) {    // Ammo Selection (Scroll Wheel Input)
