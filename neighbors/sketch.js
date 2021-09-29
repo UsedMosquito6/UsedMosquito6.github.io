@@ -5,7 +5,7 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let gridSize = 4;
+let gridSize = 30;
 let grid, ax, ay;
 
 function setup() {
@@ -62,7 +62,7 @@ function createRandomGrid(howLarge) {
         emptyArray[y].push(0);
       }
       else {
-        emptyArray[y].push(1);
+        emptyArray[y].push(0);
       }
     }
   }
@@ -75,10 +75,10 @@ function mousePressed(){
     let cellX = Math.floor(mouseX/(width/gridSize));
     let cellY = Math.floor(mouseY/(height/gridSize));
     swap(cellX, cellY);
-    swap(cellX, cellY - 1);
-    swap(cellX, cellY + 1);
-    swap(cellX + 1, cellY);
-    swap(cellX - 1, cellY);
+    // swap(cellX, cellY - 1);
+    // swap(cellX, cellY + 1);
+    // swap(cellX + 1, cellY);
+    // swap(cellX - 1, cellY);
   }
 }
 
