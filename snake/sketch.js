@@ -24,6 +24,7 @@ function setup() {
 function draw() {
   background(220);
   displayGrid();
+  move();
 }
 
 function displayGrid() {
@@ -57,38 +58,45 @@ function createEmptyGrid(howLarge) {
 
 
 function move() {   
-  let cellX = 0;
   if (keyIsDown(87)) {
-    swap(cellX, cellY);
-    swap(cellX, cellY -1);
+    if (cellY > 0){
+      swap(cellX, cellY);
+      swap(cellX, cellY -1);
+      cellY = cellY - 1;
+    }
   }
   if (keyIsDown(65)) {
-    swap(cellX, cellY);
-    swap(cellX -1, cellY);
-
+    if (cellX > 0){
+      swap(cellX, cellY);
+      swap(cellX -1, cellY);
+      cellX = cellX -1;   
+    } 
   }
   if (keyIsDown(83)) {
-    swap(cellX, cellY);
-    swap(cellX, cellY +1);
-
+    if (cellY < gridSize -1){
+      swap(cellX, cellY);
+      swap(cellX, cellY +1);
+      cellY = cellY + 1;
+    }
   }
   if (keyIsDown(68)) {
-    swap(cellX, cellY);
-    swap(cellX +1, cellY);
-
+    if (cellX < gridSize -1){
+      swap(cellX, cellY);
+      swap(cellX +1, cellY);
+      cellX = cellX +1;
+    }
   }
-
 }
 
-function mousePressed(){
-  //let cellX = Math.floor(mouseX/(width/gridSize));
-  //let cellY = Math.floor(mouseY/(height/gridSize));
-  swap(cellX, cellY);
-  swap(cellX, cellY - 1);
-  swap(cellX, cellY + 1);
-  swap(cellX + 1, cellY);
-  swap(cellX - 1, cellY);
-}
+// function mousePressed(){
+//   //let cellX = Math.floor(mouseX/(width/gridSize));
+//   //let cellY = Math.floor(mouseY/(height/gridSize));
+//   swap(cellX, cellY);
+//   swap(cellX, cellY - 1);
+//   swap(cellX, cellY + 1);
+//   swap(cellX + 1, cellY);
+//   swap(cellX - 1, cellY);
+// }
 
 
 
