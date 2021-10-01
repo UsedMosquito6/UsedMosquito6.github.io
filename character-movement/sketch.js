@@ -122,6 +122,9 @@ function keyPressed(){
   }
 }
 
+
+
+
 function tryMovingTo(newX, newY){
   if(newX >= 0 && newY >=0 && newX < gridDimensions && newY < gridDimensions){
     if(grid[newY][newX] === 0){
@@ -131,7 +134,5 @@ function tryMovingTo(newX, newY){
       grid[newY][newX] = 9;
     }
   }
-
-
-
+  
 }
