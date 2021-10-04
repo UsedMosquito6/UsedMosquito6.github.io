@@ -112,6 +112,7 @@ function swap(x, y){
 }
 
 function keyPressed(){
+  // if (frameCount % 10 === 0) {
   if (key === "s"){
     tryMovingTo(playerX, playerY+1);
   }
@@ -124,6 +125,7 @@ function keyPressed(){
   else if (key === "d"){
     tryMovingTo(playerX+1, playerY);
   }
+  // }
 }
 
 
