@@ -8,8 +8,14 @@
 let gridDimensions = 10;
 let grid, ax, ay;
 let level1;
-let playerX = 4;
-let playerY = 4;
+let snake = [ 
+  {x:4, y:4},
+  {x:3, y:4},
+  {x:2, y:4},
+  [x:1, y:4],];
+
+
+
 
 function preload(){
   level1 = loadJSON("assets/blank-grid.json");
@@ -112,20 +118,19 @@ function swap(x, y){
 }
 
 function keyPressed(){
-  // if (frameCount % 10 === 0) {
   if (key === "s"){
-    tryMovingTo(playerX, playerY+1);
+    tryMovingTo(snake[0].x, snake[0].y +1);
   }
   else if (key === "w"){
-    tryMovingTo(playerX, playerY-1);
+    tryMovingTo(snake[0].x, snake[0].y-1);
   }
   else if (key === "a"){
-    tryMovingTo(playerX-1, playerY);
+    tryMovingTo(snake[0].x-1, snake[0].y);
   }
   else if (key === "d"){
-    tryMovingTo(playerX+1, playerY);
+    tryMovingTo(snake[0].x+1, snake[0].y);
   }
-  // }
+  
 }
 
 
@@ -134,9 +139,16 @@ function keyPressed(){
 function tryMovingTo(newX, newY){
   if(newX >= 0 && newY >=0 && newX < gridDimensions && newY < gridDimensions){
     if(grid[newY][newX] === 0){
-      grid[playerY][playerX] = 0;
-      playerX = newX;
-      playerY = newY;
+      //grid[snake[0].x][snake[0].y] = 0;
+      for(let p=0; p < snake.length; p++){
+        if (p !== snake.length - 1){
+          snake[p+1].x = snake[p].x;
+          snake[p+1].y = snake[p].y;
+          grid[snake[p+1].x][snake[p+1].y] = 0;
+        }
+      }
+      snake[0].x = newX;
+      snake[0].y = newY;
       grid[newY][newX] = 9;
     }
   }
