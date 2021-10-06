@@ -100,27 +100,46 @@ function keyPressed(){
     //else { game over
   }
   if (key === "a"){
-    for (let i= snake.length -1; i>0; i--){
-      snake[i].y = snake[i-1].y;
-      snake[i].x = snake[i-1].x;
+    if (snake[0].x > 0){
+      if (grid[snake[0].y][snake[0].x -1] === 0){
+        for (let i= snake.length -1; i>0; i--){
+          snake[i].y = snake[i-1].y;
+          snake[i].x = snake[i-1].x;
+        }
+        snake[0].x -= 1;
+      }
+      //else{ game over
     }
-    snake[0].x -= 1;
+    //else{ game over
   }
   if (key === "s"){
-    for (let i= snake.length -1; i>0; i--){
-      snake[i].y = snake[i-1].y;
-      snake[i].x = snake[i-1].x;
+    if (snake[0].y < 15){
+      if (grid[snake[0].y +1][snake[0].x] === 0){
+        for (let i= snake.length -1; i>0; i--){
+          snake[i].y = snake[i-1].y;
+          snake[i].x = snake[i-1].x;
+        }
+        snake[0].y += 1;
+      }
+      //else{ game over
     }
-    snake[0].y += 1;
+    //else{ game over
   }
   if (key === "d"){
-    for (let i= snake.length -1; i>0; i--){
-      snake[i].y = snake[i-1].y;
-      snake[i].x = snake[i-1].x;
+    if (snake[0].x < gridWidth){
+      if (grid[snake[0].y][snake[0].x +1] === 0){
+        for (let i= snake.length -1; i>0; i--){
+          snake[i].y = snake[i-1].y;
+          snake[i].x = snake[i-1].x;
+        }
+        snake[0].x += 1;
+      }
+      //else{ game over
     }
-    snake[0].x += 1;
+    //else{ game over
   }
 }
+
 
 
 
