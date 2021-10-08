@@ -9,6 +9,8 @@ let gridHeight = 15;
 let gridWidth = 17;
 let grid;
 let cellSize;
+let tail = [
+  {x:0, y:0}];
 
 let snake = [
   {x:4, y:4},
@@ -23,9 +25,8 @@ function setup() {
 
 function draw() {
   background(220);
-  displaySnake();
   displayGrid();
-  
+  displaySnake();
   
 }
 
@@ -39,7 +40,7 @@ function displayGrid() {
         fill("white");
       }
       else if (grid[y][x] === 1) {
-        fill("black");
+        fill("red");
       }
       else if (grid[y][x] === 9){
         fill("green");
@@ -84,10 +85,17 @@ function displaySnake(){
 }
 
 function keyPressed(){
-  grid[snake[snake.length-1].y][snake[snake.length-1].x] = 0;
+  tail.x = snake[snake.length-1].x;
+  tail.y = snake[snake.length-1].y;
   if (key === "w"){
     if (snake[0].y >0){
-      if (grid[snake[0].y -1][snake[0].x] === 0){
+      if (grid[snake[0].y -1][snake[0].x] === 1){
+        let newTail = [
+          {x:tail.x, y:tail.y}
+        ];
+        snake.push(newTail);
+      }
+      if (grid[snake[0].y -1][snake[0].x] === 0 || grid[snake[0].y -1][snake[0].x] === 1){
         for (let i= snake.length -1; i>0; i--){
           snake[i].y = snake[i-1].y;
           snake[i].x = snake[i-1].x;
@@ -95,7 +103,6 @@ function keyPressed(){
         snake[0].y -= 1;
       }
       //else{ game over
-
     }
     //else { game over
   }
@@ -113,7 +120,7 @@ function keyPressed(){
     //else{ game over
   }
   if (key === "s"){
-    if (snake[0].y < 15){
+    if (snake[0].y < gridHeight -1){
       if (grid[snake[0].y +1][snake[0].x] === 0){
         for (let i= snake.length -1; i>0; i--){
           snake[i].y = snake[i-1].y;
@@ -126,7 +133,7 @@ function keyPressed(){
     //else{ game over
   }
   if (key === "d"){
-    if (snake[0].x < gridWidth){
+    if (snake[0].x < gridWidth - 1){
       if (grid[snake[0].y][snake[0].x +1] === 0){
         for (let i= snake.length -1; i>0; i--){
           snake[i].y = snake[i-1].y;
