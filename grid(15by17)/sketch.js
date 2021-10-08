@@ -37,7 +37,8 @@ function displayGrid() {
   for (let y=0; y<grid.length; y++) {
     for (let x=0; x<grid[y].length; x++) {
       if (grid[y][x] === 0) {
-        fill("white");
+        stroke("white");
+        fill("black");
       }
       else if (grid[y][x] === 1) {
         fill("red");
@@ -87,6 +88,8 @@ function displaySnake(){
 function keyPressed(){
   tail.x = snake[snake.length-1].x;
   tail.y = snake[snake.length-1].y;
+  grid[snake[snake.length -1].y ][snake[snake.length -1].x] = 0;
+  
   if (key === "w"){
     if (snake[0].y >0){
       if (grid[snake[0].y -1][snake[0].x] === 1){
