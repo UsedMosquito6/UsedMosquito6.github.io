@@ -2,8 +2,6 @@
 // Blake Allin
 // 09/22/21
 //
-// Extra for Experts:
-// - describe what you did to take this project "above and beyond"
 
 let heights = [];
 let numberOfRectangles;

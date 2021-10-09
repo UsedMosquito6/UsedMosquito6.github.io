@@ -3,24 +3,23 @@
 // 9/27/21
 //
 // Extra for Experts:
-// The 
+//I used the mouse wheel as input to change the ammo type if I continue to develope this game
+// You could say that I made my own simple shapes to create the squares and line for the ammo selection
+
+
 
 
 
 
 let ballArray = [];
 let bSpeed = 8;
-
-let a;
-let x, y, tankGT, missile, tankGB, bx, by, type;
-// let radius = 1;
+let x, y, tankGT, a, missile, tankGB, bx, by, type;
 let tRadius = 25;
-
 let pos = 75;
 let theta = 0;
 let speed = 1;
 
-function preload() {
+function preload() {    //Load images
   tankGT = loadImage("assets/tankG-T.png");
   missile = loadImage("assets/missile.png");
   tankGB = loadImage("assets/tankG-B.png");
@@ -58,7 +57,7 @@ function mousePressed() {   //Shoot
   pop();
 }
 
-function spawnBall() {    //Ball
+function spawnBall() {    //Bullet Array
   push();
   translate (x, y);
   let newBall = {
