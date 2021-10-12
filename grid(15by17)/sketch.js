@@ -9,6 +9,9 @@ let gridHeight = 15;
 let gridWidth = 17;
 let grid;
 let cellSize;
+let newTail;
+let deleteEnd;
+
 let tail = [
   {x:0, y:0}];
 
@@ -21,6 +24,7 @@ let snake = [
 function setup() {
   createCanvas(windowWidth, windowHeight);
   grid = createEmptyGrid(gridWidth, gridHeight);
+  grid[4][13] = 1;
 }
 
 function draw() {
@@ -37,7 +41,7 @@ function displayGrid() {
   for (let y=0; y<grid.length; y++) {
     for (let x=0; x<grid[y].length; x++) {
       if (grid[y][x] === 0) {
-        stroke("white");
+        stroke("black");
         fill("black");
       }
       else if (grid[y][x] === 1) {
@@ -52,9 +56,9 @@ function displayGrid() {
 }
 
 
-function createEmptyGrid(howWide, howTall) {
+function createEmptyGrid(howWide, howHigh){
   let emptyArray = [];
-  for (let y=0; y<howTall; y++) {
+  for (let y=0; y<howHigh; y++) {
     emptyArray.push([]);
     for (let x=0; x<howWide; x++) {
       emptyArray[y].push(0);
@@ -63,16 +67,16 @@ function createEmptyGrid(howWide, howTall) {
   return emptyArray;
 }
 
-function createRandomGrid(howLarge) {
+function createRandomGrid(howWide, howHigh) {
   let emptyArray = [];
-  for (let y=0; y<howLarge; y++) {
+  for (let y=0; y<howHigh; y++) {
     emptyArray.push([]);
-    for (let x=0; x<howLarge; x++) {
-      if (random(0, 100) < 50) {
-        emptyArray[y].push(0);
+    for (let x=0; x<howWide; x++) {
+      if (random(0, 100) < 10) {
+        emptyArray[y].push(1);
       }
       else {
-        emptyArray[y].push(1);
+        emptyArray[y].push(0);
       }
     }
   }
@@ -89,13 +93,13 @@ function keyPressed(){
   tail.x = snake[snake.length-1].x;
   tail.y = snake[snake.length-1].y;
   grid[snake[snake.length -1].y ][snake[snake.length -1].x] = 0;
-  
+  newTail = [
+    {x:tail.x, y:tail.y}
+  ];
+
   if (key === "w"){
-    if (snake[0].y >0){
+    if (snake[0].y > 0){
       if (grid[snake[0].y -1][snake[0].x] === 1){
-        let newTail = [
-          {x:tail.x, y:tail.y}
-        ];
         snake.push(newTail);
       }
       if (grid[snake[0].y -1][snake[0].x] === 0 || grid[snake[0].y -1][snake[0].x] === 1){
@@ -109,9 +113,13 @@ function keyPressed(){
     }
     //else { game over
   }
-  if (key === "a"){
+
+  else if (key === "a"){
     if (snake[0].x > 0){
-      if (grid[snake[0].y][snake[0].x -1] === 0){
+      if (grid[snake[0].y][snake[0].x -1] === 1){
+        snake.push(newTail);
+      }
+      if (grid[snake[0].y][snake[0].x -1] === 0 || grid[snake[0].y][snake[0].x -1] === 1){
         for (let i= snake.length -1; i>0; i--){
           snake[i].y = snake[i-1].y;
           snake[i].x = snake[i-1].x;
@@ -122,9 +130,13 @@ function keyPressed(){
     }
     //else{ game over
   }
-  if (key === "s"){
+
+  else if (key === "s"){
     if (snake[0].y < gridHeight -1){
-      if (grid[snake[0].y +1][snake[0].x] === 0){
+      if (grid[snake[0].y +1][snake[0].x] === 1){
+        snake.push(newTail);
+      }
+      if (grid[snake[0].y +1][snake[0].x] === 0 || grid[snake[0].y +1][snake[0].x] === 1){
         for (let i= snake.length -1; i>0; i--){
           snake[i].y = snake[i-1].y;
           snake[i].x = snake[i-1].x;
@@ -135,9 +147,13 @@ function keyPressed(){
     }
     //else{ game over
   }
-  if (key === "d"){
+
+  else if (key === "d"){
     if (snake[0].x < gridWidth - 1){
-      if (grid[snake[0].y][snake[0].x +1] === 0){
+      if (grid[snake[0].y][snake[0].x +1] === 1){
+        snake.push(newTail);
+      }
+      if (grid[snake[0].y][snake[0].x +1] === 0 || grid[snake[0].y][snake[0].x +1] === 1){
         for (let i= snake.length -1; i>0; i--){
           snake[i].y = snake[i-1].y;
           snake[i].x = snake[i-1].x;
