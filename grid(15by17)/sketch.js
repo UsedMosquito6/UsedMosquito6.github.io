@@ -11,6 +11,7 @@ let grid;
 let cellSize;
 let newTail;
 let deleteEnd;
+let foodX, foodY;
 
 let tail = [
   {x:0, y:0}];
@@ -31,9 +32,9 @@ function draw() {
   background(220);
   displayGrid();
   displaySnake();
+  randomFood();
   
 }
-
 
 function displayGrid() {
   let cellSize = windowWidth/17;
@@ -54,7 +55,6 @@ function displayGrid() {
     }
   }
 }
-
 
 function createEmptyGrid(howWide, howHigh){
   let emptyArray = [];
@@ -166,9 +166,6 @@ function keyPressed(){
   }
 }
 
-
-
-
 function mousePressed(){
   if(mouseX <= width && mouseY <= height){
     let cellX = Math.floor(mouseX/(width/gridWidth));
@@ -176,7 +173,6 @@ function mousePressed(){
     swap(cellX, cellY);
   }
 }
-
 
 function swap(x, y){
   if (x>=0 && x < gridWidth && y>=0 && y < gridHeight){
@@ -189,6 +185,16 @@ function swap(x, y){
   }
 }
 
+function randomFood() {
+  foodX = 13;
+  foodY = 4;
+  if (grid[foodY][foodX] !== 1) {
+    foodX = random(1,2)
+    if (grid){
+    
+    }
+  }
+}
 
 
 
