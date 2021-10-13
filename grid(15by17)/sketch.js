@@ -24,7 +24,7 @@ let snake = [
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  grid = createEmptyGrid(gridWidth, gridHeight);
+  grid = createRandomGrid(gridWidth, gridHeight);
   grid[4][13] = 1;
 }
 
@@ -32,7 +32,7 @@ function draw() {
   background(220);
   displayGrid();
   displaySnake();
-  randomFood();
+  //randomFood();
   
 }
 
@@ -72,7 +72,7 @@ function createRandomGrid(howWide, howHigh) {
   for (let y=0; y<howHigh; y++) {
     emptyArray.push([]);
     for (let x=0; x<howWide; x++) {
-      if (random(0, 100) < 10) {
+      if (random(0, 100) < 50) {
         emptyArray[y].push(1);
       }
       else {
@@ -185,16 +185,16 @@ function swap(x, y){
   }
 }
 
-function randomFood() {
-  foodX = 13;
-  foodY = 4;
-  if (grid[foodY][foodX] !== 1) {
-    foodX = random(1,2)
-    if (grid){
+// function randomFood() {
+//   foodX = 13;
+//   foodY = 4;
+//   if (grid[foodY][foodX] !== 1) {
+//     foodX = random(1,2)
+//     if (grid){
     
-    }
-  }
-}
+//     }
+//   }
+// }
 
 
 
