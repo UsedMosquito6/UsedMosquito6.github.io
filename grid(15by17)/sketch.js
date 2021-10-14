@@ -5,13 +5,21 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
+
+
+//HEIGHT 789
+//WIDTH 858
+
 let gridHeight = 15;
 let gridWidth = 17;
 let grid;
 let cellSize;
 let newTail;
 let deleteEnd;
-let foodX, foodY;
+let foodX = 13;
+let foodY = 4;
+let direction = "";
+let snakeFramerate = 15;
 
 let tail = [
   {x:0, y:0}];
@@ -24,16 +32,89 @@ let snake = [
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  grid = createRandomGrid(gridWidth, gridHeight);
+  grid = createEmptyGrid(gridWidth, gridHeight);
   grid[4][13] = 1;
 }
 
 function draw() {
   background(220);
   displayGrid();
+  moveSnake();
   displaySnake();
-  //randomFood();
-  
+  randomFood();
+}
+
+function moveSnake() {
+  tail.x = snake[snake.length-1].x;
+  tail.y = snake[snake.length-1].y;
+  grid[snake[snake.length -1].y ][snake[snake.length -1].x] = 0;
+  newTail = [
+    {x:tail.x, y:tail.y}
+  ];
+  if (direction === "up" && frameCount % snakeFramerate === 0) {
+    if (snake[0].y > 0){
+      if (grid[snake[0].y -1][snake[0].x] === 1){
+        snake.push(newTail);
+      }
+      if (grid[snake[0].y -1][snake[0].x] === 0 || grid[snake[0].y -1][snake[0].x] === 1){
+        for (let i= snake.length -1; i>0; i--){
+          snake[i].y = snake[i-1].y;
+          snake[i].x = snake[i-1].x;
+        }
+        snake[0].y -= 1;
+      }
+      //else{ game over
+    }
+    //else { game over
+  }
+  else if (direction === "left" && frameCount % snakeFramerate === 0) {
+    if (snake[0].x > 0){
+      if (grid[snake[0].y][snake[0].x -1] === 1){
+        snake.push(newTail);
+      }
+      if (grid[snake[0].y][snake[0].x -1] === 0 || grid[snake[0].y][snake[0].x -1] === 1){
+        for (let i= snake.length -1; i>0; i--){
+          snake[i].y = snake[i-1].y;
+          snake[i].x = snake[i-1].x;
+        }
+        snake[0].x -= 1;
+      }
+      //else{ game over
+    }
+    //else{ game over
+  }
+  else if (direction === "down" && frameCount % snakeFramerate === 0) {
+    if (snake[0].y < gridHeight -1){
+      if (grid[snake[0].y +1][snake[0].x] === 1){
+        snake.push(newTail);
+      }
+      if (grid[snake[0].y +1][snake[0].x] === 0 || grid[snake[0].y +1][snake[0].x] === 1){
+        for (let i= snake.length -1; i>0; i--){
+          snake[i].y = snake[i-1].y;
+          snake[i].x = snake[i-1].x;
+        }
+        snake[0].y += 1;
+      }
+      //else{ game over
+    }
+    //else{ game over
+  }
+  else if (direction === "right" && frameCount % snakeFramerate === 0) {
+    if (snake[0].x < gridWidth - 1){
+      if (grid[snake[0].y][snake[0].x +1] === 1){
+        snake.push(newTail);
+      }
+      if (grid[snake[0].y][snake[0].x +1] === 0 || grid[snake[0].y][snake[0].x +1] === 1){
+        for (let i= snake.length -1; i>0; i--){
+          snake[i].y = snake[i-1].y;
+          snake[i].x = snake[i-1].x;
+        }
+        snake[0].x += 1;
+      }
+      //else{ game over
+    }
+    //else{ game over
+  }
 }
 
 function displayGrid() {
@@ -43,6 +124,7 @@ function displayGrid() {
     for (let x=0; x<grid[y].length; x++) {
       if (grid[y][x] === 0) {
         stroke("black");
+        //stroke("white");
         fill("black");
       }
       else if (grid[y][x] === 1) {
@@ -90,81 +172,37 @@ function displaySnake(){
 }
 
 function keyPressed(){
-  tail.x = snake[snake.length-1].x;
-  tail.y = snake[snake.length-1].y;
-  grid[snake[snake.length -1].y ][snake[snake.length -1].x] = 0;
-  newTail = [
-    {x:tail.x, y:tail.y}
-  ];
-
   if (key === "w"){
-    if (snake[0].y > 0){
-      if (grid[snake[0].y -1][snake[0].x] === 1){
-        snake.push(newTail);
-      }
-      if (grid[snake[0].y -1][snake[0].x] === 0 || grid[snake[0].y -1][snake[0].x] === 1){
-        for (let i= snake.length -1; i>0; i--){
-          snake[i].y = snake[i-1].y;
-          snake[i].x = snake[i-1].x;
-        }
-        snake[0].y -= 1;
-      }
-      //else{ game over
-    }
-    //else { game over
+    direction = "up";
   }
 
   else if (key === "a"){
-    if (snake[0].x > 0){
-      if (grid[snake[0].y][snake[0].x -1] === 1){
-        snake.push(newTail);
-      }
-      if (grid[snake[0].y][snake[0].x -1] === 0 || grid[snake[0].y][snake[0].x -1] === 1){
-        for (let i= snake.length -1; i>0; i--){
-          snake[i].y = snake[i-1].y;
-          snake[i].x = snake[i-1].x;
-        }
-        snake[0].x -= 1;
-      }
-      //else{ game over
-    }
-    //else{ game over
+    direction = "left";
   }
 
   else if (key === "s"){
-    if (snake[0].y < gridHeight -1){
-      if (grid[snake[0].y +1][snake[0].x] === 1){
-        snake.push(newTail);
-      }
-      if (grid[snake[0].y +1][snake[0].x] === 0 || grid[snake[0].y +1][snake[0].x] === 1){
-        for (let i= snake.length -1; i>0; i--){
-          snake[i].y = snake[i-1].y;
-          snake[i].x = snake[i-1].x;
-        }
-        snake[0].y += 1;
-      }
-      //else{ game over
-    }
-    //else{ game over
+    direction = "down";
   }
 
   else if (key === "d"){
-    if (snake[0].x < gridWidth - 1){
-      if (grid[snake[0].y][snake[0].x +1] === 1){
-        snake.push(newTail);
-      }
-      if (grid[snake[0].y][snake[0].x +1] === 0 || grid[snake[0].y][snake[0].x +1] === 1){
-        for (let i= snake.length -1; i>0; i--){
-          snake[i].y = snake[i-1].y;
-          snake[i].x = snake[i-1].x;
-        }
-        snake[0].x += 1;
-      }
-      //else{ game over
-    }
-    //else{ game over
+    direction = "right";
   }
 }
+
+function randomFood() {
+  if (grid[foodY][foodX] !== 1) {
+    foodX = round(random(0, gridWidth));
+    foodY = round(random(0, gridHeight));
+  }
+  if (grid[foodY][foodX] === 0) {
+    grid[foodY][foodX] = 1;
+  }
+}
+
+
+//---------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 function mousePressed(){
   if(mouseX <= width && mouseY <= height){
@@ -185,16 +223,6 @@ function swap(x, y){
   }
 }
 
-// function randomFood() {
-//   foodX = 13;
-//   foodY = 4;
-//   if (grid[foodY][foodX] !== 1) {
-//     foodX = random(1,2)
-//     if (grid){
-    
-//     }
-//   }
-// }
 
 
 
