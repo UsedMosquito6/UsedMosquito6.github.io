@@ -7,9 +7,6 @@
 
 
 
-//HEIGHT 789
-//WIDTH 858
-
 let gridHeight = 15;
 let gridWidth = 17;
 let grid;
@@ -19,7 +16,12 @@ let deleteEnd;
 let foodX = 13;
 let foodY = 4;
 let direction = "";
-let snakeFramerate = 15;
+let start = false;
+let gameOver = false;
+let difficulty = 1;
+let snakeColor = "green";
+
+let startButton, colorButton, difficultyButton;
 
 let points = 4;
 
@@ -39,15 +41,23 @@ function setup() {
 }
 
 function draw() {
-  background(220);
-  displayGrid();
-  moveSnake();
-  displaySnake();
-  randomFood();
-  displayPoints();
+  background(0);
+  startScene();
+  startButton();
+  difficultyButton();
+  colorButton();
+
+  if (start === true) {
+    displayGrid();
+    moveSnake();
+    displaySnake();
+    randomFood();
+    displayPoints();
+  }
 }
 
-function moveSnake() {
+function moveSnake() { //error if a turn and back direction are changed before the head moves.
+  let snakeFramerate = difficulty * 10 + 5;
   tail.x = snake[snake.length-1].x;
   tail.y = snake[snake.length-1].y;
   grid[snake[snake.length -1].y ][snake[snake.length -1].x] = 0;
@@ -134,7 +144,7 @@ function displayGrid() {
         fill("red");
       }
       else if (grid[y][x] === 9){
-        fill("green");
+        fill("#C2F6FE");
       }
       rect(x*cellSize, y*cellSize, cellSize, cellSize);
     }
@@ -204,6 +214,72 @@ function randomFood() {
 }
 
 
+function displayPoints() {
+  fill("white");
+  textSize(50);
+  textAlign(CENTER, CENTER);
+  text(str(points), width/2, 25);
+}
+
+//---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+//#029EB6 Dark
+//#85EEFE Light
+//#C2F6FE Text
+
+
+class Button {
+  constructor(y, text) {
+    this.y = y;
+    this.text = text;
+    this.tColor = "#C2F6FE";
+    this.dark = "#029EB6";
+    this.light = "#85EEFE";
+  }
+
+  display() {
+    if (this.checkIfInside(mouseX, mouseY)) {
+      fill(this.dark);
+    }
+    else {
+      fill(this.light);
+    }
+    stroke(this.tcolor);
+    rect (width/2 -100, this.y, 200, 50);
+    fill(this.tColor);
+    textSize(30);
+    textAlign(CENTER, CENTER);
+    text(this.text, width/2, this.y + 25);
+  }
+
+  checkIfInside() {
+
+  }
+
+}
+
+
+
+
+function startScene() {
+  fill("#C2F6FE");
+  stroke("#C2F6FE");
+  textSize(75);
+  textAlign(CENTER, CENTER);
+  text("Kukulkan", width/2, 200);
+}
+
+
+//function startButton() { // y = 250, text = 'Start'
+ 
+
+//function difficultyButton() { // y = 325, text = "Difficulty: " + str(difficulty)
+ 
+//function colorButton() { // y = 400, text = "Color: " + str(snakeColor) 
+
+
+
 //---------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -226,15 +302,6 @@ function swap(x, y){
     }
   }
 }
-
-function displayPoints() {
-  fill("white");
-  textSize(50);
-  textAlign(CENTER, CENTER);
-  text(str(points), 25, 25);
-}
-
-
 
 
 
