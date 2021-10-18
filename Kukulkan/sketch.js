@@ -11,13 +11,14 @@ let direction = "";
 let start = false;
 let gameOver = false;
 let cheats = false;
-let difficulty = 1;
+let difficulty;
 let snakeColor = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
 let snakeColorCounter = 0;
 let snakeFramerate;
 let startButton, colorButton, difficultyButton;
 let points = 4;
 let tsMusic, music1, music2, music3, goMusic;
+let difficultyWord;
 
 let tail = [
   {x:0, y:0}];
@@ -28,11 +29,16 @@ let snake = [
   {x:2, y:4},
   {x:1, y:4},];
 
+function preload() {
+  tsMusic = loadSound("assets/title-screen.wav");
+}
+
 function setup() {
   createCanvas(cellSize * gridWidth, cellSize * gridHeight);
   grid = createEmptyGrid(gridWidth, gridHeight);
   grid[4][13] = 1;
-  //tsMusic = loadSound("assets/title-screen.wav");
+  tsMusic.loop();
+  difficulty = 3;
 }
 
 function draw() {
@@ -51,14 +57,6 @@ function draw() {
     }
   }
 }
-
-// function canvasPressed() {
-//   music();
-// }
-
-// function music(){
-//   loop(tsMusic);
-// }
 
 function moveSnake() { //Error
   tail.x = snake[snake.length-1].x;
@@ -278,7 +276,7 @@ class Button {
     else {
       fill(color(this.dark));
     }
-    rect (width/2 -100, this.y, 200, 50);
+    rect (width/2 -125, this.y, 250, 50);
     fill(color(this.tColor));
     textSize(30);
     textAlign(CENTER, CENTER);
@@ -294,7 +292,7 @@ function startScene() {
   titleText("Kukulkan");
   startButton = new Button (250, "Start");
   startButton.display();
-  difficultyButton = new Button (325, "Difficulty: " + str(difficulty));
+  difficultyButton = new Button (325, "Difficulty: " + difficulty);
   difficultyButton.display();
   colorButton = new Button (400, "Color: " + str(snakeColor[snakeColorCounter]));
   colorButton.display();
@@ -306,7 +304,7 @@ function gameOverScreen(endPoints, difficulty) {
   textSize(30);
   textAlign(CENTER, CENTER);
   text("Points: " + str(points), width/2, 250 + 25);
-  text("Difficulty: " + str(difficulty), width/2, 300 + 25);
+  text("Difficulty: " + difficulty, width/2, 300 + 25);
 }
 
 function titleText(words) {
@@ -327,15 +325,16 @@ function mousePressed(){
       let cellY = Math.floor(mouseY/(height/gridHeight));
       swap(cellX, cellY);
     }
-  }  if (startButton.checkIfInside(mouseX, mouseY) && gameOver === false && start === false) {
+  }  
+  if (startButton.checkIfInside(mouseX, mouseY) && gameOver === false && start === false) {
     snakeFramerate = difficulty * 5;
     start = true;
   }
-  if (difficultyButton.checkIfInside(mouseX, mouseY) && difficulty < 3 && gameOver === false && start === false) {
-    difficulty += 1;
+  if (difficultyButton.checkIfInside(mouseX, mouseY) && difficulty > 1 && gameOver === false && start === false) {
+    difficulty -= 1;
   }
   else {
-    difficulty = 1;
+    difficulty = 3;
   }
   if (colorButton.checkIfInside(mouseX, mouseY) && gameOver === false && start === false) {
     if (snakeColorCounter < 6) {
@@ -345,7 +344,7 @@ function mousePressed(){
       snakeColorCounter = 0;
     }
   }
-  if (mouseX >= 420 && mouseX <= 430 && mouseY >= 205 &&  mouseY <= 225 && gameOver == false && start === false) {
+  if (mouseX >= 420 && mouseX <= 430 && mouseY >= 205 &&  mouseY <= 225 && gameOver === false && start === false) {
     cheats = !cheats;
   }
 }
