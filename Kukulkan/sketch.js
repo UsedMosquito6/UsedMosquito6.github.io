@@ -11,14 +11,14 @@ let direction = "";
 let start = false;
 let gameOver = false;
 let cheats = false;
-let difficulty;
+let difficulty = 3;
 let snakeColor = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
 let snakeColorCounter = 0;
 let snakeFramerate;
 let startButton, colorButton, difficultyButton;
 let points = 4;
 let tsMusic, music1, music2, music3, goMusic;
-let difficultyWord;
+let difficultyWord = "easy";
 
 let tail = [
   {x:0, y:0}];
@@ -292,7 +292,7 @@ function startScene() {
   titleText("Kukulkan");
   startButton = new Button (250, "Start");
   startButton.display();
-  difficultyButton = new Button (325, "Difficulty: " + difficulty);
+  difficultyButton = new Button (325, "Difficulty: " + difficultyWord);
   difficultyButton.display();
   colorButton = new Button (400, "Color: " + str(snakeColor[snakeColorCounter]));
   colorButton.display();
@@ -304,7 +304,7 @@ function gameOverScreen(endPoints, difficulty) {
   textSize(30);
   textAlign(CENTER, CENTER);
   text("Points: " + str(points), width/2, 250 + 25);
-  text("Difficulty: " + difficulty, width/2, 300 + 25);
+  text("Difficulty: " + difficultyWord, width/2, 300 + 25);
 }
 
 function titleText(words) {
@@ -332,9 +332,27 @@ function mousePressed(){
   }
   if (difficultyButton.checkIfInside(mouseX, mouseY) && difficulty > 1 && gameOver === false && start === false) {
     difficulty -= 1;
+    if (difficulty === 1) {
+      difficultyWord = "hard";
+    }
+    if (difficulty === 2) {
+      difficultyWord = "medium";
+    }
+    if (difficulty === 3) {
+      difficultyWord = "easy";
+    }
   }
-  else {
+  else if (difficultyButton.checkIfInside(mouseX, mouseY) && gameOver === false && start === false) {
     difficulty = 3;
+    if (difficulty === 1) {
+      difficultyWord = "hard";
+    }
+    if (difficulty === 2) {
+      difficultyWord = "medium";
+    }
+    if (difficulty === 3) {
+      difficultyWord = "easy";
+    }
   }
   if (colorButton.checkIfInside(mouseX, mouseY) && gameOver === false && start === false) {
     if (snakeColorCounter < 6) {
