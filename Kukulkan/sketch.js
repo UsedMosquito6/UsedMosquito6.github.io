@@ -19,6 +19,7 @@ let startButton, colorButton, difficultyButton;
 let points = 4;
 let tsMusic, music1, music2, music3, goMusic;
 let difficultyWord = "easy";
+tsMusicEnabled = true;
 
 let tail = [
   {x:0, y:0}];
@@ -30,14 +31,15 @@ let snake = [
   {x:1, y:4},];
 
 function preload() {
-  tsMusic = loadSound("assets/title-screen.wav");
+  tsMusic = loadSound("assets/level-1.wav");
 }
+
 
 function setup() {
   createCanvas(cellSize * gridWidth, cellSize * gridHeight);
   grid = createEmptyGrid(gridWidth, gridHeight);
   grid[4][13] = 1;
-  tsMusic.loop();
+  
   difficulty = 3;
 }
 
@@ -47,7 +49,7 @@ function draw() {
     gameOverScreen(points, difficulty);
   }
   else {
-    startScene();
+    startScreen();
     if (start === true) {
       displayGrid();
       moveSnake();
@@ -57,6 +59,7 @@ function draw() {
     }
   }
 }
+
 
 function moveSnake() { //Error
   tail.x = snake[snake.length-1].x;
@@ -288,7 +291,7 @@ class Button {
   }
 }
 
-function startScene() {
+function startScreen() {
   titleText("Kukulkan");
   startButton = new Button (250, "Start");
   startButton.display();
@@ -319,6 +322,10 @@ function titleText(words) {
 //---------------------------------------------------------------------------------------------------------------------------------------------
 
 function mousePressed(){
+  if (tsMusicEnabled === true) {
+    tsMusic.loop();
+    tsMusicEnabled = false;
+  }
   if(mouseX <= width && mouseY <= height && direction !== ""){
     if (cheats === true) {
       let cellX = Math.floor(mouseX/(width/gridWidth));
