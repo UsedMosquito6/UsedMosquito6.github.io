@@ -19,7 +19,7 @@ let startButton, colorButton, difficultyButton;
 let points = 4;
 let tsMusic, music1, music2, music3, goMusic;
 let difficultyWord = "easy";
-tsMusicEnabled = true;
+let tsMusicEnabled = true;
 
 let tail = [
   {x:0, y:0}];
