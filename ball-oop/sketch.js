@@ -56,10 +56,10 @@ class Ball {
       this.dy *= -1;
     }
   }
-  checkColisionWith(otherBall){
+  checkColisionWith(otherBall) {
     let distanceBetween = dist(this.x, this.y, otherBall.x, otherBall.y);
     let radiSum = this.radius + otherBall.radius;
-    if (distanceBetween < radiSum){
+    if (distanceBetween < radiSum) {
       //ball hit eachother
       this.thecolor = "red";
       otherBall.theColor = "red";
@@ -71,6 +71,5 @@ class Ball {
       otherBall.dx = tempDx;
       otherBall.dy = tempDy;
     }
-
   }
 }
